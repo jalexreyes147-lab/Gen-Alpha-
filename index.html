@@ -130,7 +130,14 @@ canvas{display:block;}
 .mc3 .btn-mcard{background:linear-gradient(135deg,#1565c0,#1976d2);}
 .mc4 .btn-mcard{background:linear-gradient(135deg,#c62828,var(--rd));}
 .btn-mcard:hover{opacity:.87;transform:scale(1.03);}
-.menu-foot{margin-top:10px;text-align:center;color:rgba(255,255,255,.4);font-size:10px;letter-spacing:1px;padding-bottom:4px;flex-shrink:0;}
+/* Impacto educativo en tarjeta */
+.mcard-impact{display:flex;align-items:flex-start;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:7px 9px;margin-bottom:9px;}
+.mcard-impact-ico{font-size:14px;flex-shrink:0;}
+.mcard-impact-txt{font-size:10px;color:rgba(255,255,255,.72);line-height:1.45;}
+.menu-foot{margin-top:10px;width:100%;max-width:960px;flex-shrink:0;padding-bottom:6px;}
+.menu-impact-row{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 14px;text-align:left;}
+.menu-impact-title{display:block;font-family:var(--fh);color:var(--go2);font-size:clamp(11px,2.5vw,14px);margin-bottom:5px;letter-spacing:1px;}
+.menu-impact-desc{display:block;font-size:clamp(10px,2vw,12px);color:rgba(255,255,255,.62);line-height:1.6;}
 
 /* ══ GAME SCREENS ══ */
 .gscreen{z-index:100;background:var(--bg);align-items:stretch;justify-content:flex-start;}
@@ -152,9 +159,13 @@ canvas{display:block;}
 .garea{flex:1;position:relative;overflow:hidden;}
 
 /* ══ MODAL — MISIÓN COMPLETADA ══ */
-.modal-ov{position:absolute;inset:0;background:rgba(26,10,60,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:60;animation:fadeIn .3s ease;}
-.modal-box{background:var(--wh);border-radius:22px;padding:28px 22px;text-align:center;max-width:340px;width:90%;box-shadow:0 18px 56px rgba(0,0,0,.42);position:relative;overflow:hidden;}
+.modal-ov{position:absolute;inset:0;background:rgba(26,10,60,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:60;animation:fadeIn .3s ease;overflow-y:auto;padding:12px 0;}
+.modal-box{background:var(--wh);border-radius:22px;padding:24px 20px;text-align:center;max-width:340px;width:90%;box-shadow:0 18px 56px rgba(0,0,0,.42);position:relative;overflow:hidden;}
 .modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--pu3),var(--gr4),var(--go2));}
+/* Caja de conciencia ambiental */
+.modal-eco{background:linear-gradient(135deg,#e8f5e9,#f3e5f5);border:1px solid rgba(46,204,64,.3);border-radius:14px;padding:12px 14px;margin-bottom:14px;text-align:left;display:flex;gap:10px;align-items:flex-start;}
+.modal-eco-ico{font-size:22px;flex-shrink:0;margin-top:1px;}
+.modal-eco-txt{font-size:11px;color:#2e4a2e;line-height:1.6;font-weight:600;}
 .modal-stars{display:flex;justify-content:center;gap:4px;margin-bottom:8px;}
 .mstar{font-size:clamp(24px,5vw,32px);animation:starPop .4s ease both;}
 .mstar:nth-child(2){animation-delay:.08s;}.mstar:nth-child(3){animation-delay:.16s;}
@@ -306,7 +317,7 @@ canvas{display:block;}
     <div class="sp-hero">🦸</div>
     <div class="sp-hero-glow"></div>
     <!-- Descripción -->
-    <p class="sp-desc">Videojuego educativo interactivo que fomenta la conciencia ambiental mediante la gamificación y el aprendizaje por retos.</p>
+    <p class="sp-desc">Videojuego educativo interactivo que fomenta la conciencia ambiental mediante la gamificación y el aprendizaje por retos. Aprende sobre reciclaje, energías limpias, biodiversidad y sostenibilidad mientras juegas.</p>
     <!-- Monedas récord -->
     <div class="sp-coins-row">
       <span class="sp-coin-ico">🪙</span>
@@ -372,7 +383,12 @@ canvas{display:block;}
     <div class="menu-coins-hud"><span style="font-size:18px">🪙</span><span id="totalRec" style="font-family:var(--fh);color:var(--go1);font-size:16px">0</span><span style="color:rgba(255,255,255,.55);font-size:11px;margin-left:2px">monedas totales</span></div>
   </div>
   <div class="menu-grid" id="gameGrid"></div>
-  <div class="menu-foot">⭐ Aprendizaje interactivo • Gamificación con puntos y medallas • Adaptado por edad ⭐</div>
+  <div class="menu-foot">
+    <div class="menu-impact-row">
+      <span class="menu-impact-title">🌍 ¿Cómo ayuda este juego al medio ambiente?</span>
+      <span class="menu-impact-desc">Guardianes Alfa Eco desarrolla conciencia ambiental a través de la acción: clasificar residuos, elegir energías limpias, cuidar ecosistemas y combatir la contaminación industrial. Cada misión enseña datos reales sobre reciclaje, biodiversidad y sostenibilidad, fomentando hábitos responsables para la vida cotidiana.</span>
+    </div>
+  </div>
 </div>
 
 <!-- ══ CLASIFICACIÓN DE RESIDUOS ══ -->
@@ -527,16 +543,16 @@ document.getElementById('groupGrid').addEventListener('click',function(e){
 
 // ── MENÚ ───────────────────────────────
 var GD=[
-  {ico:'♻️',num:'MISIÓN 01',name:'Clasificación de Residuos',desc:'Arrastra cada residuo al contenedor correcto. ¡Aprende a reciclar!',key:'recycling',badge:'RECICLAJE',cls:'mc1',fn:launchRecycling},
-  {ico:'🚗',num:'MISIÓN 02',name:'Eco Racer',desc:'Conduce tu carrito ecológico. Recoge bonos verdes y esquiva la contaminación.',key:'racer',badge:'ECO DRIVE',cls:'mc2',fn:launchRacer},
-  {ico:'🐍',num:'MISIÓN 03',name:'Eco Snake',desc:'Come elementos buenos para crecer. Evita los contaminantes o encogerás.',key:'snake',badge:'SUPERVIVENCIA',cls:'mc3',fn:launchSnake},
-  {ico:'🚀',num:'MISIÓN 04',name:'Eco Invaders',desc:'Defiende la Tierra del jefe contaminante. ¡Dispara y recoge bonos eco!',key:'space',badge:'DEFENSA',cls:'mc4',fn:launchSpace}
+  {ico:'♻️',num:'MISIÓN 01',name:'Clasificación de Residuos',desc:'Arrastra cada residuo al contenedor correcto. ¡Aprende a reciclar!',impact:'Enseña a identificar y separar correctamente 5 tipos de residuos, reduciendo la contaminación del suelo y el agua.',key:'recycling',badge:'RECICLAJE',cls:'mc1',fn:launchRecycling},
+  {ico:'🚗',num:'MISIÓN 02',name:'Eco Racer',desc:'Conduce tu carrito ecológico. Recoge bonos verdes y esquiva la contaminación.',impact:'Promueve la preferencia por energías limpias, transporte sostenible y estilos de vida con menor huella de carbono.',key:'racer',badge:'ECO DRIVE',cls:'mc2',fn:launchRacer},
+  {ico:'🐍',num:'MISIÓN 03',name:'Eco Snake',desc:'Come elementos buenos para crecer. Evita los contaminantes o encogerás.',impact:'Refuerza la idea de que los hábitos saludables (reciclar, plantar, cuidar el agua) fortalecen los ecosistemas.',key:'snake',badge:'SUPERVIVENCIA',cls:'mc3',fn:launchSnake},
+  {ico:'🚀',num:'MISIÓN 04',name:'Eco Invaders',desc:'Defiende la Tierra del jefe contaminante. ¡Dispara y recoge bonos eco!',impact:'Desarrolla pensamiento crítico frente a la contaminación industrial y motiva la acción ciudadana pro-ambiente.',key:'space',badge:'DEFENSA',cls:'mc4',fn:launchSpace}
 ];
 function buildMenu(){
   refreshUI();var grid=document.getElementById('gameGrid');grid.innerHTML='';
   GD.forEach(function(g,i){
     var d=document.createElement('div');d.className='mcard '+g.cls;d.style.animation='cardIn .4s ease '+(i*.08)+'s both';
-    d.innerHTML='<div class="mcard-badge">'+g.badge+'</div><span class="mcard-ico">'+g.ico+'</span><div class="mcard-num">'+g.num+'</div><div class="mcard-name">'+g.name+'</div><div class="mcard-desc">'+g.desc+'</div><div class="mcard-rec">🪙 RÉCORD: '+getRec(g.key)+' pts</div><button class="btn-mcard">⚡ JUGAR AHORA</button>';
+    d.innerHTML='<div class="mcard-badge">'+g.badge+'</div><span class="mcard-ico">'+g.ico+'</span><div class="mcard-num">'+g.num+'</div><div class="mcard-name">'+g.name+'</div><div class="mcard-desc">'+g.desc+'</div><div class="mcard-impact"><span class="mcard-impact-ico">🌍</span><span class="mcard-impact-txt">'+g.impact+'</span></div><div class="mcard-rec">🪙 RÉCORD: '+getRec(g.key)+' pts</div><button class="btn-mcard">⚡ JUGAR AHORA</button>';
     (function(fn){d.querySelector('.btn-mcard').addEventListener('click',function(){SFX.ui();fn();});})(g.fn);
     grid.appendChild(d);
   });
@@ -559,15 +575,75 @@ function showModal(container,win,score,key,msg,onRestart){
   var old=container.querySelector('.modal-ov');if(old&&old.parentNode)old.parentNode.removeChild(old);
   var rec=getRec(key),isRec=score>0&&score>=rec;
   var coins=Math.floor(score/10);
+  var eco=ecoMsg(key,win);
   var d=document.createElement('div');d.className='modal-ov';
-  var starsHtml=win?'<div class="modal-stars"><span class="mstar">⭐</span><span class="mstar">⭐</span><span class="mstar">⭐</span></div>':'<div class="modal-stars"><span class="mstar">💀</span></div>';
-  d.innerHTML='<div class="modal-box">'+starsHtml+'<div class="modal-title">'+(win?'¡MISIÓN COMPLETADA!':'MISIÓN FALLIDA')+'</div><div class="modal-score-box"><div class="modal-score">'+score+'</div></div><div class="modal-coins"><span class="mc-ico">🪙</span><span class="mc-val">+'+coins+'</span></div><div class="modal-rec">'+(isRec?'🌟 ¡NUEVO RÉCORD!':'🏆 Récord: '+rec+' pts')+'</div><div class="modal-msg">'+msg+'</div><div class="mbtns"><button class="mbtn p" id="_r">'+(win?'▶ CONTINUAR':'🔄 REINTENTAR')+'</button><button class="mbtn s" id="_m">🏠 MENÚ</button></div></div>';
+  var starsHtml=win?'<div class="modal-stars"><span class="mstar">⭐</span><span class="mstar">⭐</span><span class="mstar">⭐</span></div>':'<div class="modal-stars"><span class="mstar" style="font-size:28px">💀</span></div>';
+  var ecoHtml=eco?'<div class="modal-eco"><span class="modal-eco-ico">🌿</span><div class="modal-eco-txt">'+eco+'</div></div>':'';
+  d.innerHTML='<div class="modal-box">'+starsHtml+'<div class="modal-title">'+(win?'¡MISIÓN COMPLETADA!':'MISIÓN FALLIDA')+'</div><div class="modal-score-box"><div class="modal-score">'+score+'</div></div><div class="modal-coins"><span class="mc-ico">🪙</span><span class="mc-val">+'+coins+'</span></div><div class="modal-rec">'+(isRec?'🌟 ¡NUEVO RÉCORD!':'🏆 Récord: '+rec+' pts')+'</div><div class="modal-msg">'+msg+'</div>'+ecoHtml+'<div class="mbtns"><button class="mbtn p" id="_r">'+(win?'▶ CONTINUAR':'🔄 REINTENTAR')+'</button><button class="mbtn s" id="_m">🏠 MENÚ</button></div></div>';
   container.appendChild(d);
   d.querySelector('#_r').addEventListener('click',function(){if(d.parentNode)d.parentNode.removeChild(d);onRestart();});
   d.querySelector('#_m').addEventListener('click',function(){if(d.parentNode)d.parentNode.removeChild(d);stopAll();buildMenu();showScreen('mainMenu');});
 }
 
-// ── STOP ALL ───────────────────────────
+// ── MENSAJES DE CONCIENCIA AMBIENTAL ──────────────────
+// Por juego × grupo (A/B/C) × resultado (win/lose)
+var ECO_MSG={
+  recycling:{
+    win:{
+      A:'🌿 ¡Increíble! Clasificar los residuos correctamente reduce hasta un 70% de los desechos que van a los rellenos sanitarios. ¡Tú marcas la diferencia!',
+      B:'♻️ ¡Excelente trabajo! El reciclaje ahorra energía: reciclar una lata de aluminio ahorra la energía necesaria para ver TV durante 3 horas. ¡Sigue así!',
+      C:'🌍 ¡Dominas el reciclaje! Cada tonelada de papel reciclado salva 17 árboles y ahorra 26.000 litros de agua. ¡Eres un verdadero Guardián Eco!'
+    },
+    lose:{
+      A:'💡 No te rindas. El 80% de los residuos domésticos pueden reciclarse, pero terminan en basureros. ¡Practica y ayuda a cambiar esa estadística!',
+      B:'💡 ¡Casi! La contaminación del suelo por residuos mal clasificados afecta los cultivos y el agua que bebemos. ¡Inténtalo de nuevo, Guardián!',
+      C:'💡 ¡Sigue entrenando! Una persona genera en promedio 1 kg de basura al día. Clasificarla correctamente es el primer paso hacia un mundo sostenible.'
+    }
+  },
+  racer:{
+    win:{
+      A:'☀️ ¡Fantástico! Los vehículos eléctricos y las energías limpias como la solar pueden reducir las emisiones de CO₂ hasta en un 90%. ¡Tú elegiste lo verde!',
+      B:'🚲 ¡Gran recorrido! Si 1 de cada 10 personas usara bicicleta en lugar de carro, se evitarían 11 millones de toneladas de CO₂ al año. ¡Inspiras con el ejemplo!',
+      C:'🔋 ¡Velocidad verde al máximo! La transición a energías renovables podría crear 24 millones de empleos verdes antes de 2030. ¡Eres parte del cambio!'
+    },
+    lose:{
+      A:'💡 Recuerda: los carros de gasolina son uno de los mayores contaminantes del aire. Elegir transporte limpio es un acto de amor por el planeta. ¡Inténtalo!',
+      B:'💡 La contaminación del aire causa 7 millones de muertes al año según la OMS. Cada elección de transporte limpio cuenta. ¡Vuelve a la pista, Guardián!',
+      C:'💡 El smog y el petróleo dañan ecosistemas enteros. Las energías limpias son la solución. ¡Aplica lo que sabes y defiende el planeta en la carretera!'
+    }
+  },
+  snake:{
+    win:{
+      A:'🌱 ¡Creciste con la naturaleza! Las plantas y los árboles absorben CO₂ y producen el oxígeno que respiramos. Plantar un árbol puede compensar hasta 22 kg de CO₂ al año.',
+      B:'🌊 ¡Supervivencia eco lograda! Los océanos absorben el 30% del CO₂ mundial. Protegerlos de la contaminación plástica es proteger la vida en la Tierra.',
+      C:'🌿 ¡Maestro de la supervivencia verde! La biodiversidad es el seguro de vida del planeta. Cada especie que protegemos fortalece los ecosistemas que nos alimentan.'
+    },
+    lose:{
+      A:'💡 La contaminación destruye hábitats naturales. Igual que tu serpiente encoge con los contaminantes, los ecosistemas se debilitan con la basura. ¡Sigue intentando!',
+      B:'💡 El smog y el petróleo afectan la cadena alimentaria completa. Los animales marinos confunden el plástico con comida. ¡Practica y protege la vida!',
+      C:'💡 La deforestación elimina el 18% de los bosques del mundo cada año. Cada árbol que protegemos en el juego representa un árbol real que debemos cuidar.'
+    }
+  },
+  space:{
+    win:{
+      A:'🌍 ¡Defendiste la Tierra! La contaminación industrial es responsable del 20% de las emisiones mundiales de gases de efecto invernadero. ¡Tus acciones importan!',
+      B:'🛡️ ¡Guardián victorioso! La lluvia ácida causada por emisiones tóxicas destruye bosques, lagos y monumentos históricos. ¡Gracias por proteger nuestro planeta!',
+      C:'🚀 ¡El mejor defensor del planeta! Los gases tóxicos de las fábricas contaminan el aire de millones de personas. Exigir producción limpia es un derecho ciudadano.'
+    },
+    lose:{
+      A:'💡 Los contaminantes industriales afectan la salud de 9 de cada 10 personas en el mundo según la OMS. ¡Sigue entrenando para defender nuestro planeta!',
+      B:'💡 Los químicos tóxicos en el agua afectan a más de 2 mil millones de personas sin acceso a agua limpia. ¡Vuelve a la batalla por un mundo más limpio!',
+      C:'💡 El 91% del plástico nunca se ha reciclado. Combatir la contaminación requiere conocimiento y acción. ¡Aplica todo lo que sabes en el siguiente intento!'
+    }
+  }
+};
+
+function ecoMsg(game,win){
+  var g=PLAYER_GROUP||'B';
+  var msgs=ECO_MSG[game];if(!msgs)return '';
+  var pool=win?msgs.win:msgs.lose;
+  return pool[g]||pool['B']||'';
+}
 var _timers=[];
 function addTimer(id){_timers.push(id);}
 function stopAll(){
@@ -647,7 +723,7 @@ function launchRacer(){showScreen('racerGame');requestAnimationFrame(function(){
 function startRacer(W,H){
   stopAll();
   var mxS=cfg().racerMaxSpd;
-  _RA={score:0,level:1,lives:3,spd:3,maxSpd:mxS,cx:W/2,cy:H-100,W:W,H:H,objs:[],ot:0,oi:75,bgY:0,over:false,dist:0};window._RA=_RA;
+  _RA={score:0,level:1,lives:3,spd:3,maxSpd:mxS,cx:W/2,cy:H-160,W:W,H:H,objs:[],ot:0,oi:75,bgY:0,over:false,dist:0};window._RA=_RA;
   setLives('ra_lives',3,3);document.getElementById('ra_score').textContent=0;document.getElementById('ra_level').textContent=1;
   window._tdir=0;document.onkeydown=function(e){if(e.key==='ArrowLeft'||e.key==='a')window._tdir=-1;if(e.key==='ArrowRight'||e.key==='d')window._tdir=1;};document.onkeyup=function(){window._tdir=0;};
   document.getElementById('raLeft').ontouchstart=function(){window._tdir=-1;};document.getElementById('raLeft').ontouchend=function(){if(window._tdir===-1)window._tdir=0;};
@@ -745,7 +821,7 @@ function startSpace(W,H){
   stopAll();var nc=Math.max(4,Math.floor(W/85)),minions=[];
   for(var r=0;r<2;r++)for(var c=0;c<nc;c++){var pk=SI_MIN[0|Math.random()*SI_MIN.length];minions.push({x:55+c*(W-110)/Math.max(1,nc-1),y:70+r*52,e:pk.e,n:pk.n,alive:true});}
   var bossInt=cfg().siBossInt;
-  _SI={W:W,H:H,px:W/2,py:H-50,pspd:5,bullets:[],ammo:SI_MAX,ammoTimer:0,boss:{x:W/2,y:H*.1,vx:0.7,hp:20,maxHp:20,sTimer:0,sInt:bossInt,alive:true},minions:minions,mDir:1,eprojs:[],drops:[],score:0,lives:3,wave:1,over:false,won:false,parts:[]};
+  _SI={W:W,H:H,px:W/2,py:H-120,pspd:5,bullets:[],ammo:SI_MAX,ammoTimer:0,boss:{x:W/2,y:H*.1,vx:0.7,hp:20,maxHp:20,sTimer:0,sInt:bossInt,alive:true},minions:minions,mDir:1,eprojs:[],drops:[],score:0,lives:3,wave:1,over:false,won:false,parts:[]};
   window._SI=_SI;setLives('si_lives',3,3);document.getElementById('si_score').textContent=0;document.getElementById('si_wave').textContent=1;renderAmmo();
   window._tdir=0;document.onkeydown=function(e){if(e.key==='ArrowLeft'||e.key==='a')window._tdir=-1;if(e.key==='ArrowRight'||e.key==='d')window._tdir=1;if(e.key===' '||e.key==='z'){siShoot();e.preventDefault();}};document.onkeyup=function(e){if(e.key==='ArrowLeft'||e.key==='a'||e.key==='ArrowRight'||e.key==='d')window._tdir=0;};
   document.getElementById('siLeft').ontouchstart=function(){window._tdir=-1;};document.getElementById('siLeft').ontouchend=function(){if(window._tdir===-1)window._tdir=0;};
